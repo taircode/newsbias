@@ -31,13 +31,10 @@ elif args.category == "entertainment":
 html_request = requests.get(rss_url)
 #print(type(html_request))
 
-with open('tech_rss.html','w') as f:
-    f.write(html_request.text)
+#this is a soup object that is the list of articles
+article_list_soup=BeautifulSoup(html_request.text,"lxml")
 
-with open('tech_rss.html','r') as f:
-    soup=BeautifulSoup(f,"lxml")
-
-all_guid=soup.find_all("guid")
+all_guid=article_list_soup.find_all("guid")
 
 print(len(all_guid))
 
