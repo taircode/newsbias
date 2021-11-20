@@ -81,7 +81,7 @@ for topic_url in topic_links:
             print(f"Request statis is {r.status_code}")
             html_source=r.text
 
-            #various options for parsers: "html.parser"
+            #various options for parsers: "html.parser" #wait shouldn't this be lxml?
             soup=BeautifulSoup(html_source,"xml")
 
             #print(soup)
