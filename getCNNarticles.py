@@ -47,7 +47,6 @@ for guid in all_guid:
     current_link=guid.get_text()
     if current_link.startswith('https://www.cnn.com/20'):
         print(current_link)
-        filename=current_link+".html"
         r=requests.get(current_link)
         html_source=r.text
 
