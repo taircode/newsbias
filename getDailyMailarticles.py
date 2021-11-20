@@ -32,7 +32,7 @@ for topic_url in topic_links:
     all_links=all_links[3:]
     
     for current_link in all_links:
-        print(current_link.text+"\n")
+        print(current_link.text)
         if "cartoon" in current_link.text or "sources" in current_link.text:
             print("Cartoon Link or Sources Link, so exciting\n")
         else:
@@ -46,7 +46,7 @@ for topic_url in topic_links:
             #print(soup)
             title=soup.find("title").text
             titles.append(title)
-            print(f"Article title: {title}")
+            print(f"Article title: {title}\n")
 
             #type="application/ld+json"
             div = soup.find("div", itemprop="articleBody")
