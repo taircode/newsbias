@@ -35,14 +35,15 @@ if __name__ == "__main__":
     print(f"Eval Dataset has length:{len(eval_dataset)}\n")
     encoded_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length'))
 
-    print(encoded_train_dataset)
     #do we have to do the following two lines? There's something about huggingface not wanting a column to be called label, so it should be labels
+    """seriously, look this up, does this need to be labels."""
+    """What's crated here is a dataset with both a 'label' attribute and a 'labels' attribute"""
     encoded_train_dataset = encoded_train_dataset.map(lambda examples: {'labels': examples['label']})
     encoded_eval_dataset = encoded_eval_dataset.map(lambda examples: {'labels': examples['label']})
     #encoded_train_dataset=encoded_train_dataset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask', 'label'])
     #encoded_eval_dataset=encoded_eval_dataset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask', 'label'])
 
-    print("Done loading and formatting datasets.\n")
+    print("\nDone loading and formatting datasets.\n")
 
     training_args = TrainingArguments(
         output_dir="./model",
