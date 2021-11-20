@@ -20,8 +20,6 @@ for item in all_rss_feeds:
     topic_links.append(current_link)
 print(len(topic_links))
 
-rss_url="https://www.reutersagency.com"+topic_links[0]
-
 titles=[]
 articles=[]
 count=0
