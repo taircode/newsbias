@@ -1,0 +1,17 @@
+torch
+transformers
+datasets
+pylint
+pyyaml
+pytorch-lightning
+hydra
+hydra-core
+pandas
+tqdm
+tensorboard
+azureml-sdk
+azureml-defaults
+azureml-mlflow
+matplotlib
+sklearn
+scipy
