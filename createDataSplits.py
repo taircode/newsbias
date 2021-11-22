@@ -25,4 +25,4 @@ print(f"Train dataset size is {len(train)}")
 print(f"Train dataset size is {len(val)}")
 
 train.to_csv("articles/train.csv")
-val.to_csv("articles/val.csv")
+val.to_csv("articles/eval.csv")
