@@ -116,4 +116,4 @@ old_df=pd.read_csv("EconomistData.csv", usecols=['article','label'])
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
 new_df=pd.concat([old_df,df],ignore_index=True)
 
-datafile = new_df.to_csv("EconomistData.csv")
+datafile = new_df.to_csv("scrapedData/EconomistData.csv")
