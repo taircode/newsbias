@@ -106,7 +106,7 @@ for topic_url in topic_links:
 print(count)
 print(len(articles))
 
-labels=[2]*count
+labels=[1]*count
 print(labels)
 
 #this should have a list of lists that is [article, label] pairs

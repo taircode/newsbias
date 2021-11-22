@@ -10,6 +10,13 @@ economist=pd.read_csv("scrapedData/EconomistData.csv", usecols=['article','label
 cnn=pd.read_csv("scrapedData/CNNdata.csv", usecols=['article','label'])
 dailymail=pd.read_csv("scrapedData/DailyMailData.csv", usecols=['article','label'])
 
+print(reuters)
+reuters = reuters.assign(label=0)
+print(reuters)
+economist = economist.assign(label=1)
+cnn = cnn.assign(label=2)
+dailymail = dailymail.assign(label=3)
+
 full_dataset=pd.concat([reuters,economist,cnn,dailymail], ignore_index=True)
 
 print(full_dataset)

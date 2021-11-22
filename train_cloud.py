@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     #initialize the tokenizer and model - using pretrained bert-base-cased - see if there's a more specific fine-tuned model in the model database that applies to our task
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
-    model=AutoModelForSequenceClassification.from_pretrained("bert-base-cased",num_labels=5)
+    model=AutoModelForSequenceClassification.from_pretrained("bert-base-cased",num_labels=4)
 
     #This is going to be important - how are you going to classify political bias
     classes=["fact","factual analysis","opinion","selective-incomplete","fiction"]

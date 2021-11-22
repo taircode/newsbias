@@ -79,7 +79,7 @@ for topic_url in topic_links:
                 articles.append(article)
                 count=count+1
 
-labels=[-2]*count
+labels=[3]*count
 print(labels)
 
 #this should have a list of lists that is [article, label] pairs

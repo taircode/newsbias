@@ -44,7 +44,7 @@ arguments=[
 ]
 
 # get compute target - Use the cluster not the compute - you get charged if you forget to manually dismount the compute. 
-target = ws.compute_targets["tair-cpu-cluster"]
+target = ws.compute_targets["tair-cpu"]
 
 #from pip requirements
 env = Environment.from_pip_requirements("news-classification", "news-requirements.txt")

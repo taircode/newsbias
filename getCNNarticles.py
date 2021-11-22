@@ -73,7 +73,7 @@ for rss_url in topic_links:
 
 print(f"count={count}")
 
-labels=[0]*count
+labels=[2]*count
 print(labels)
 
 #this should have a list of lists that is [article, label] pairs
