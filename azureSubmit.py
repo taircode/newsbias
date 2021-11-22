@@ -13,8 +13,6 @@ from azureml.core import (
     Datastore,
 )
 
-
-
 parser = argparse.ArgumentParser()
 #parser.add_argument(
     #need some args?
@@ -45,8 +43,8 @@ arguments=[
     "--output_dir", output_dataset.as_mount(),
 ]
 
-# get compute target
-target = ws.compute_targets["cpu-cluster"]
+# get compute target - Use the cluster not the compute - you get charged if you forget to manually dismount the compute. 
+target = ws.compute_targets["tair-cpu-cluster"]
 
 #from pip requirements
 env = Environment.from_pip_requirements("news-classification", "news-requirements.txt")
