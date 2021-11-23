@@ -11,32 +11,33 @@ ds = ws.get_default_datastore()
 
 print(f"Downloading model to news/model from news/model")
 ds.download(
-    target_path=".",
+    target_path="/model",
     prefix="news/model/pytorch_model.bin",
     overwrite=False,
     show_progress=True
 )
 ds.download(
-    target_path=".",
+    target_path="/model",
     prefix="news/model/config.json",
     overwrite=False,
     show_progress=True
 )
 ds.download(
-    target_path=".",
+    target_path="/model",
     prefix="news/model/training_args.bin",
     overwrite=False,
     show_progress=True
 )
 
 print("Loading model...")
-model=AutoModelForSequenceClassification.from_pretrained("./news/model")
+model=AutoModelForSequenceClassification.from_pretrained("./model")
 print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
 #is the entire article a single line? If not, this should probably be readlines()
 with open("input_article.txt","r") as file:
-    text_input=file.readline()
+    all_lines=file.readlines()
+    text_input=' '.join(all_lines)
 
 print("Here is the input text:\n")
 print(text_input)

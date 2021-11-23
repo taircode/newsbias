@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import re
 
 main_url="https://www.cnn.com/services/rss/"
+cnn_international_url="http://edition.cnn.com/services/rss/"
+cnn_money="https://money.cnn.com/services/rss/"
 main_request = requests.get(main_url)
 main_soup = BeautifulSoup(main_request.text,"lxml")
 
