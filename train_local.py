@@ -27,6 +27,7 @@ if __name__ == "__main__":
     
     #add batched=True if you want batching
     encoded_train_dataset = train_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length'))
+    print(encoded_train_dataset)
     #print(encoded_train_dataset.column_names)
     #print(encoded_train_dataset[0])
 
