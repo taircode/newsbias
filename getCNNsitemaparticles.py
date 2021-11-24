@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 #there are articles from October
 sitemap="https://www.cnn.com/article/sitemap-2021-10.html"
