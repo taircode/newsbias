@@ -5,14 +5,30 @@ from datasets import load_dataset
 
 #first merge all of the CSVs
 
-reuters=pd.read_csv("scrapedData/ReutersData.csv", usecols=['article','label'])
-economist=pd.read_csv("scrapedData/EconomistData.csv", usecols=['article','label'])
-cnn=pd.read_csv("scrapedData/CNNdata.csv", usecols=['article','label'])
-dailymail=pd.read_csv("scrapedData/DailyMailData.csv", usecols=['article','label'])
+reuters=pd.read_csv("../scrapedData/Reutersdata.csv", usecols=['article','label'])
+economist=pd.read_csv("../scrapedData/EconomistData.csv", usecols=['article','label'])
+cnn=pd.read_csv("../scrapedData/CNNdata.csv", usecols=['article','label'])
+dailymail=pd.read_csv("../scrapedData/DailyMaildata.csv", usecols=['article','label'])
 
-print(reuters)
+#making sure that there are no empty strings, i.e. NaNs, DailyMail was letting some slip through
+nulls=np.where(pd.isnull(dailymail['article']))
+dailymail=dailymail.drop(nulls[0])
+print(len(nulls[0]))
+
+nulls=np.where(pd.isnull(economist['article']))
+economis=economist.drop(nulls[0])
+print(len(nulls[0]))
+
+nulls=np.where(pd.isnull(cnn['article']))
+cnn=cnn.drop(nulls[0])
+print(len(nulls[0]))
+
+nulls=np.where(pd.isnull(reuters['article']))
+reuters=reuters.drop(nulls[0])
+print(len(nulls[0]))
+
+#this should have already been done when collecting the articles - maybe the labelling should be done here
 reuters = reuters.assign(label=0)
-print(reuters)
 economist = economist.assign(label=1)
 cnn = cnn.assign(label=2)
 dailymail = dailymail.assign(label=3)
@@ -29,7 +45,7 @@ permuted_dataset=full_dataset.sample(frac=1).reset_index(drop=True)
 train, val = np.split(permuted_dataset,[int(.8*len(permuted_dataset))])
 print(f"Full dataset size is {len(permuted_dataset)}")
 print(f"Train dataset size is {len(train)}")
-print(f"Train dataset size is {len(val)}")
+print(f"Eval dataset size is {len(val)}")
 
-train.to_csv("articles/train.csv")
-val.to_csv("articles/eval.csv")
+train.to_csv("../articles/train.csv")
+val.to_csv("../articles/eval.csv")

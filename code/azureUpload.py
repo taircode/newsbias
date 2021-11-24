@@ -8,4 +8,4 @@ print("Connecting to workspace default datastore...")
 ds = ws.get_default_datastore()
 
 print("Uploading train articles")
-ds.upload(src_dir="./articles",target_path="./news/articles",overwrite=True)
+ds.upload(src_dir="../articles",target_path="./news/articles",overwrite=True)
