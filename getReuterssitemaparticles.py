@@ -1,9 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import pandas as pd
 
-"""this is the real master sitemap (I think), but we just need one link from it"""
-#master_sitemap="https://www.reuters.com/arc/outboundfeeds/news-sitemap-index/?outputType=xml"
+
+"""This is another sitemap, how is it different?"""
+#other_sitemap="https://www.reuters.com/arc/outboundfeeds/sitemap/?outputType=xml"
 
 sitemap="https://www.reuters.com/arc/outboundfeeds/news-sitemap-index/?outputType=xml"
 sitemap_request=requests.get(sitemap)
