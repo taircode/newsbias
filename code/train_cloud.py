@@ -62,8 +62,8 @@ if __name__ == "__main__":
         num_train_epochs=2,
         learning_rate=1e-5,
         weight_decay=0.01,
-        #per_device_train_batch_size=1,
-        #per_device_eval_batch_size=1,
+        per_device_train_batch_size=1,
+        per_device_eval_batch_size=1,
         evaluation_strategy="steps",
         logging_dir='./logs',
         logging_steps=500
