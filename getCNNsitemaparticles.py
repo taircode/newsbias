@@ -23,7 +23,7 @@ articles=[]
 count=0
 
 for current_link in links:
-    print(current_link)
+    #print(current_link)
     if current_link.startswith('https://www.cnn.com/20'):
         r=requests.get(current_link,timeout=10)
         html_source=r.text
@@ -55,7 +55,9 @@ for current_link in links:
             articles.append(fullbody)
             #print(fullbody)
             count=count+1
-            print(count)
+            if count % 100 ==0:
+                print(current_link)
+                print(count)
     else:
         print("Bad link, ignoring it:")
 
