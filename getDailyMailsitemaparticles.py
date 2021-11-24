@@ -16,7 +16,7 @@ print(f"There are {len(feeds)} feeds in the master sitemap xml")
 
 links=[]
 for feed in feeds:
-    if len(links)<3500:
+    if len(links)<2000:
         print(feed.text)
         feed_request=requests.get(feed.text)
         feed_soup=BeautifulSoup(feed_request.text,'lxml')
