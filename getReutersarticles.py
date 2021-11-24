@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-#This url contains link so to rss feeds by topic
+#This url contains links to rss feeds by topic
 main_url="https://www.reutersagency.com/en/reutersbest/reuters-best-rss-feeds/#recent-content"
 
 #the page denies GET requests that don't identify a User-Agent
