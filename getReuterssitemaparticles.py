@@ -1,0 +1,1 @@
+sitemap="https://www.reuters.com/arc/outboundfeeds/news-sitemap-index/?outputType=xml"

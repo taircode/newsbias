@@ -1,9 +1,8 @@
 import pandas as pd
-import argparse
 import requests
 from bs4 import BeautifulSoup
 import re
-import json
+
 
 frontpage="https://www.cnn.com/"
 main_list="https://www.cnn.com/services/rss/"
@@ -62,7 +61,7 @@ for item in main_links:
             current_link=guid.get_text()
             if current_link.startswith('https://www.cnn.com/20'):
                 print(current_link)
-                r=requests.get(current_link)
+                r=requests.get(current_link,timeout=10)
                 html_source=r.text
 
                 #various options for parsers: "html.parser"
@@ -91,6 +90,7 @@ for item in main_links:
                 else:
                     articles.append(fullbody)
                     count=count+1
+                    print(count)
             else:
                 print("Bad link, ignoring it:")
                 print(current_link)
