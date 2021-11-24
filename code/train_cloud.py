@@ -66,7 +66,7 @@ if __name__ == "__main__":
         per_device_eval_batch_size=1,
         evaluation_strategy="steps",
         logging_dir='./logs',
-        logging_steps=500
+        logging_steps=1000
     )
 
     trainer = Trainer(
