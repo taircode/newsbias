@@ -70,7 +70,7 @@ for current_link in links:
 
             bodytext=[e.get_text() for e in all_ps]
 
-            if len(bodytext)==0:
+            if len(bodytext)==0 or bodytext is None:
                 print("EMPTY ARTICLE")
             else:
                 #how do we want to join these paragraph? 

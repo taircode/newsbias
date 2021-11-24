@@ -18,12 +18,15 @@ if __name__ == "__main__":
     #This is going to be important - how are you going to classify political bias
     classes=["fact","factual analysis","opinion","selective-incomplete","fiction"]
 
-    train_dataset = load_dataset('csv', data_files='Reutersdata.csv', split='train')
+    train_dataset = load_dataset('csv', data_files='../articles/train.csv', split='train')
     print(f"Train Dataset has length:{len(train_dataset)}\n")
 
     """note for example this article is too long for default 'max_length' so we need truncation true, or otherwise increase 'max_length'"""
     #print(tokenizer(train_dataset[0]['article'],truncation=True, padding='max_length'))
     #print(train_dataset.column_names)
+    print(train_dataset[3376])
+    print(train_dataset[3377])
+    print(train_dataset[3378])
     
     #add batched=True if you want batching
     encoded_train_dataset = train_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length'))
@@ -32,7 +35,7 @@ if __name__ == "__main__":
     #print(encoded_train_dataset[0])
 
     #if I don't say split='train' here then it gives me a dictionary of datasets, with split='train' it gives me a dataset
-    eval_dataset = load_dataset('csv', data_files='CNNdata.csv', split='train')
+    eval_dataset = load_dataset('csv', data_files='../articles/eval.csv', split='train')
     print(f"Eval Dataset has length:{len(eval_dataset)}\n")
     encoded_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length'))
 
@@ -47,7 +50,7 @@ if __name__ == "__main__":
     print("\nDone loading and formatting datasets.\n")
 
     training_args = TrainingArguments(
-        output_dir="./model",
+        output_dir="../model",
         overwrite_output_dir=True,
         num_train_epochs=3,
         learning_rate=1e-5,

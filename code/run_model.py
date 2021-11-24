@@ -11,26 +11,26 @@ ds = ws.get_default_datastore()
 
 print(f"Downloading model to news/model from news/model")
 ds.download(
-    target_path="/model",
+    target_path="../model",
     prefix="news/model/pytorch_model.bin",
     overwrite=False,
     show_progress=True
 )
 ds.download(
-    target_path="/model",
+    target_path="../model",
     prefix="news/model/config.json",
     overwrite=False,
     show_progress=True
 )
 ds.download(
-    target_path="/model",
+    target_path="../model",
     prefix="news/model/training_args.bin",
     overwrite=False,
     show_progress=True
 )
 
 print("Loading model...")
-model=AutoModelForSequenceClassification.from_pretrained("./model")
+model=AutoModelForSequenceClassification.from_pretrained("../model")
 print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
