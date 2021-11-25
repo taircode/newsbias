@@ -4,6 +4,7 @@ datasets
 pylint
 pyyaml
 pytorch-lightning
+pyarrow==3.0.0
 hydra
 hydra-core
 pandas

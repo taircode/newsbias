@@ -59,14 +59,15 @@ if __name__ == "__main__":
     training_args = TrainingArguments(
         output_dir=args.output_dir,
         overwrite_output_dir=True,
-        num_train_epochs=2,
+        num_train_epochs=1,
         learning_rate=1e-5,
         weight_decay=0.01,
         per_device_train_batch_size=1,
         per_device_eval_batch_size=1,
-        evaluation_strategy="steps",
-        logging_dir='./logs',
-        logging_steps=1000
+        evaluation_strategy="epoch", #or change to steps and set eval_steps=int (default=logging_steps)
+        logging_strategy="epoch", #or change to steps and set logging_steps=int (default=500)
+        #logging_dir='./logs',
+        #logging_steps=5000,
     )
 
     trainer = Trainer(
