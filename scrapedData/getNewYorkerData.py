@@ -15,10 +15,10 @@ a_tags=main_div.find_all('a')
 links=[]
 link_count=0
 for a in a_tags:
-    if link_count>1500:
+    if link_count>900:
         break
     map=a.get_text()
-    print(map)
+    #print(map)
     sitemap_request=requests.get(map,timeout=10)
     sitemap_soup=BeautifulSoup(sitemap_request.text,'lxml')
     main=sitemap_soup.find('div',{'class':'SitemapArchive__sitemap___3t764'})
@@ -29,8 +29,8 @@ for a in a_tags:
             #print(cur_link)
             links.append(cur_link)
             link_count=link_count+1
-            print(link_count)
-            if link_count>1500:
+            #print(link_count)
+            if link_count>900:
                 break
 
 #<div class="SitemapArchive__sitemap___3t764">
@@ -50,12 +50,13 @@ for link in links:
     soup=BeautifulSoup(html_source,"lxml")
 
     div=soup.find("div",{'class': 'body__inner-container'})
-    article_body=div.get_text()
-    #print(article_body)
-    articles.append(article_body)
-    count=count+1
-    if count%100==0:
-        print(count)
+    if div is not None:
+        article_body=div.get_text()
+        #print(article_body)
+        articles.append(article_body)
+        count=count+1
+        if count%100==0:
+            print(count)
 
 print(f"count={count}")
 

@@ -17,8 +17,8 @@ for i in range(30):
     date=i+1
     #october_days.append("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
     print("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
-    day_request=requests.get("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
-    print(day_request)
+    day_request=requests.get("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date),timeout=5)
+    #print(day_request)
     october_soups.append(BeautifulSoup(day_request.text,'lxml'))
     print(october_soups[i].prettify())
 
@@ -29,8 +29,10 @@ for day_soup in october_soups:
     a_tags=main_div.find_all('a', {'class': "Link"})
     for a_tag in a_tags:
         links.append(a_tag.get('href'))
+        print(len(links))
 
 print(f"Found {len(links)} many links.")
+print(links)
 exit()
 
 #haven't implemented below this yet
