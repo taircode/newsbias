@@ -5,29 +5,29 @@ from transformers import (
 import torch
 from azureml.core import Workspace
 
-#print("Connecting to workspace datastore...")
-#ws = Workspace.from_config()
-#ds = ws.get_default_datastore()
+print("Connecting to workspace datastore...")
+ws = Workspace.from_config()
+ds = ws.get_default_datastore()
 
-#rprint(f"Downloading model to news/model from news/model")
-#ds.download(
-#    target_path="..",
-#    prefix="news/model/pytorch_model.bin",
-#    overwrite=False,
-#    show_progress=True
-#)
-#ds.download(
-#    target_path="..",
-#    prefix="news/model/config.json",
-#    overwrite=False,
-#    show_progress=True
-#)
-#ds.download(
-#    target_path="..",
-#    prefix="news/model/training_args.bin",
-#    overwrite=False,
-#    show_progress=True
-#)
+print(f"Downloading model to news/model from news/model")
+ds.download(
+    target_path="..",
+    prefix="news/model/pytorch_model.bin",
+    overwrite=False,
+    show_progress=True
+)
+ds.download(
+    target_path="..",
+    prefix="news/model/config.json",
+    overwrite=False,
+    show_progress=True
+)
+ds.download(
+    target_path="..",
+    prefix="news/model/training_args.bin",
+    overwrite=False,
+    show_progress=True
+)
 
 print("Loading model...")
 model=AutoModelForSequenceClassification.from_pretrained("../news/model")
@@ -35,7 +35,7 @@ print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
 #is the entire article a single line? If not, this should probably be readlines()
-with open("../reuters_article.txt","r") as file:
+with open("../articles_test/reuters_article.txt","r") as file:
     all_lines=file.readlines()
     text_input=' '.join(all_lines)
 
