@@ -16,3 +16,4 @@ azureml-mlflow
 matplotlib
 sklearn
 scipy
+cloudpickle==1.9

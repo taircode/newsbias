@@ -39,7 +39,7 @@ print(input_dataset)
 output_dataset = OutputFileDatasetConfig(destination=(datastore, "news/model/"),name="output")
 
 arguments=[
-    "--datapath", input_dataset.as_mount(),  #look up/think about what as_mount() does
+    "--datapath", input_dataset.as_mount(),  #look up and think about what as_mount() does
     "--output_dir", output_dataset.as_mount(),
 ]
 
@@ -55,7 +55,7 @@ env.register(ws)
 
 config = ScriptRunConfig(
     source_directory=".",
-    script="train_cloud.py",
+    script="train_cloud_pytorch.py",
     compute_target=target,
     environment=env,
     arguments=arguments,
