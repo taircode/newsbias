@@ -22,6 +22,7 @@ if __name__ == "__main__":
     #This is going to be important - how are you going to classify political bias
     classes=["fact","factual analysis","opinion","selective-incomplete","fiction"]
 
+    #here you could have just loaded the csv as a dictionary and then create dataset from dict after tokenizing
     train_dataset = load_dataset('csv', data_files='../articles/train.csv', split='train')
     print(f"Train Dataset has length:{len(train_dataset)}\n")
     #print(train_dataset)
@@ -40,17 +41,17 @@ if __name__ == "__main__":
     
     #add batched=True if you want batching
 
-    mylist = []
-    for example in train_dataset:
-        processed_example = tokenizer(example['article'], truncation=True, padding='max_length',return_tensors="pt")
-        example.update(processed_example)
-        mylist.append(example)
-    print(mylist)
+    #mylist = []
+    #for example in train_dataset:
+    #    processed_example = tokenizer(example['article'], truncation=True, padding='max_length',return_tensors="pt")
+    #    example.update(processed_example)
+    #    mylist.append(example)
+    #print(mylist)
     #exit()
-    encoded_train_dataset=load_dataset(mylist)
-    exit()
+    #encoded_train_dataset=load_dataset(mylist)
+    #exit()
 
-    #encoded_train_dataset = train_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length',return_tensors="pt"), batched=False)
+    encoded_train_dataset = train_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length',return_tensors="pt"), batched=False)
     encoded_train_dataset = encoded_train_dataset.map(lambda examples: {'labels': examples['label']})
     #encoded_train_dataset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask','labels'])
     #print(encoded_train_dataset)
