@@ -10,6 +10,11 @@ economist=pd.read_csv("../scrapedData/EconomistData.csv", usecols=['article','la
 cnn=pd.read_csv("../scrapedData/CNNdata.csv", usecols=['article','label'])
 dailymail=pd.read_csv("../scrapedData/DailyMaildata.csv", usecols=['article','label'])
 
+#reuters=reuters.rename(columns={'label': 'labels'})
+#economist=economist.rename(columns={'label': 'labels'})
+#cnn=cnn.rename(columns={'label': 'labels'})
+#dailymail=dailymail.rename(columns={'label': 'labels'})
+
 #making sure that there are no empty strings, i.e. NaNs, DailyMail was letting some slip through
 nulls=np.where(pd.isnull(dailymail['article']))
 dailymail=dailymail.drop(nulls[0])

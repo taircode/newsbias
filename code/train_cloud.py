@@ -37,14 +37,14 @@ if __name__ == "__main__":
     #print(train_dataset.column_names)
     
     #add batched=True if you want batching
-    encoded_train_dataset = train_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length'))
+    encoded_train_dataset = train_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length',return_tensors="pt"))
     #print(encoded_train_dataset.column_names)
     #print(encoded_train_dataset[0])
 
     #if I don't say split='train' here then it gives me a dictionary of datasets, with split='train' it gives me a dataset
     eval_dataset = load_dataset('csv', data_files=eval_path, split='train')
     print(f"Eval Dataset has length:{len(eval_dataset)}\n")
-    encoded_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length'))
+    encoded_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples['article'],truncation=True, padding='max_length',return_tensors="pt"))
 
     #do we have to do the following two lines? There's something about huggingface not wanting a column to be called label, so it should be labels
     """seriously, look this up, does this need to be labels."""
@@ -66,8 +66,8 @@ if __name__ == "__main__":
         per_device_eval_batch_size=1,
         evaluation_strategy="epoch", #or change to steps and set eval_steps=int (default=logging_steps)
         logging_strategy="epoch", #or change to steps and set logging_steps=int (default=500)
-        #logging_dir='./logs',
-        #logging_steps=5000,
+        logging_dir='./logs',
+        logging_steps=5000,
     )
 
     trainer = Trainer(
