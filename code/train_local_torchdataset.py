@@ -8,6 +8,7 @@ import pandas as pd
 from myDataset import myDataset
 
 def get_chunks(longlist):
+    #you should probably pad the last chunk or maybe just ignore chunks that are way too small
     for i in range(0, len(longlist), 512):
         yield longlist[i:i + 512]
 
@@ -34,32 +35,66 @@ if __name__ == "__main__":
     X_train_encoded=tokenizer(X_train,truncation=False, padding='max_length')
     X_eval_encoded=tokenizer(X_eval,truncation=False, padding='max_length')
 
+    print(len(X_train_encoded['input_ids'][0]))
+    #exit()
+
     #break up the long articles in training set
-    for i in range(len(X_train)):
-        num_tokens=len(X_train_encoded['input_ids'][i])
+    idx=0
+    while idx<len(X_train_encoded['input_ids']):
+        print("in while")
+        print(idx)
+        print(f"list has length {len(X_train_encoded['input_ids'])}")
+        num_tokens=len(X_train_encoded['input_ids'][idx])
+        print(f"num_tokens is {num_tokens}")
         if num_tokens>512:
-            article_chunks=list(get_chunks(longlist=X_train_encoded['input_ids'][i]))
-            type_chunks=list(get_chunks(longlist=X_train_encoded['token_type_ids'][i]))
-            mask_chunks=list(get_chunks(longlist=X_train_encoded['attention_mask'][i]))
-            X_train_encoded['input_ids'][i:i]=list(article_chunks)
-            y_label=y_train[i]
-            y_train[i:i]=[y_label]*len(article_chunks)
-            X_train_encoded['token_type_ids'][i:i]=list(type_chunks)
-            X_train_encoded['attention_mask'][i:i]=list(mask_chunks)
+            article_chunks=list(get_chunks(longlist=X_train_encoded['input_ids'][idx]))
+            print(f"article chunk length is {len(article_chunks)}")
+            type_chunks=list(get_chunks(longlist=X_train_encoded['token_type_ids'][idx]))
+            mask_chunks=list(get_chunks(longlist=X_train_encoded['attention_mask'][idx]))
+            del X_train_encoded['input_ids'][idx]
+            X_train_encoded['input_ids'][idx:idx]=article_chunks
+            y_label=y_train[idx]
+            y_train[idx:idx]=[y_label]*len(article_chunks)
+            del X_train_encoded['token_type_ids'][idx]
+            X_train_encoded['token_type_ids'][idx:idx]=type_chunks
+            del X_train_encoded['attention_mask'][idx]
+            X_train_encoded['attention_mask'][idx:idx]=mask_chunks
+            idx=idx+len(article_chunks)
+        else:
+            idx=idx+1
 
-    #break up the long articles in eval set
-    for i in range(len(X_eval)):
-        num_tokens=len(X_eval_encoded['input_ids'][i])
+    for i in range(len(X_train_encoded['input_ids'])):
+        print(len(X_train_encoded['input_ids'][i]))
+
+    #break up the long articles in training set
+    idx=0
+    while idx<len(X_train_encoded['input_ids']):
+        print("in while")
+        print(idx)
+        print(f"list has length {len(X_train_encoded['input_ids'])}")
+        num_tokens=len(X_train_encoded['input_ids'][idx])
+        print(f"num_tokens is {num_tokens}")
         if num_tokens>512:
-            article_chunks=list(get_chunks(longlist=X_eval_encoded['input_ids'][i]))
-            type_chunks=list(get_chunks(longlist=X_eval_encoded['token_type_ids'][i]))
-            mask_chunks=list(get_chunks(longlist=X_eval_encoded['attention_mask'][i]))
-            X_eval_encoded['input_ids'][i:i]=list(article_chunks)
-            y_label=y_eval[i]
-            y_eval[i:i]=[y_label]*len(article_chunks)
-            X_eval_encoded['token_type_ids'][i:i]=list(type_chunks)
-            X_eval_encoded['attention_mask'][i:i]=list(mask_chunks)
+            article_chunks=list(get_chunks(longlist=X_train_encoded['input_ids'][idx]))
+            print(f"article chunk length is {len(article_chunks)}")
+            type_chunks=list(get_chunks(longlist=X_train_encoded['token_type_ids'][idx]))
+            mask_chunks=list(get_chunks(longlist=X_train_encoded['attention_mask'][idx]))
+            del X_train_encoded['input_ids'][idx]
+            X_train_encoded['input_ids'][idx:idx]=article_chunks
+            y_label=y_train[idx]
+            y_train[idx:idx]=[y_label]*len(article_chunks)
+            del X_train_encoded['token_type_ids'][idx]
+            X_train_encoded['token_type_ids'][idx:idx]=type_chunks
+            del X_train_encoded['attention_mask'][idx]
+            X_train_encoded['attention_mask'][idx:idx]=mask_chunks
+            idx=idx+len(article_chunks)
+        else:
+            idx=idx+1
 
+    for i in range(len(X_train_encoded['input_ids'])):
+        print(len(X_train_encoded['input_ids'][i]))
+
+    #wrap BatchEncoding as a torch.util dataset
     train_dataset=myDataset(X_train_encoded,y_train)
     eval_dataset=myDataset(X_eval_encoded,y_eval)
 
