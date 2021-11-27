@@ -44,14 +44,7 @@ with open("../reuters_article.txt","r") as file:
 
 print("Tokenizing input...\n")
 
-tokenized_nopt=tokenizer(text_input, padding=True, truncation=True)
-print(type(tokenized_nopt))
-print(tokenized_nopt)
-
 tokenized_input=tokenizer(text_input, padding=True, truncation=True,return_tensors="pt")
-print(type(tokenized_input))
-print(tokenized_input)
-exit()
 
 #print("Tensorizing input:\n")
 #tensor_input=torch.tensor(tokenized_input)

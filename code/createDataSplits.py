@@ -18,19 +18,39 @@ dailymail=pd.read_csv("../scrapedData/DailyMaildata.csv", usecols=['article','la
 #making sure that there are no empty strings, i.e. NaNs, DailyMail was letting some slip through
 nulls=np.where(pd.isnull(dailymail['article']))
 dailymail=dailymail.drop(nulls[0])
-print(len(nulls[0]))
+#print(len(nulls[0]))
 
 nulls=np.where(pd.isnull(economist['article']))
 economis=economist.drop(nulls[0])
-print(len(nulls[0]))
+#print(len(nulls[0]))
 
 nulls=np.where(pd.isnull(cnn['article']))
 cnn=cnn.drop(nulls[0])
-print(len(nulls[0]))
+#print(len(nulls[0]))
 
 nulls=np.where(pd.isnull(reuters['article']))
 reuters=reuters.drop(nulls[0])
-print(len(nulls[0]))
+#print(len(nulls[0]))
+
+#get rid of the city, country '(Reuters) - ' beginnings
+for idx in range(len(reuters)):
+    current = reuters.loc[idx,'article']
+    index=current.find('(Reuters) - ')
+    if index != -1:
+        reuters.loc[idx,'article']=current[index+len('(Reuters) - '):]
+
+#get rid of the city, country '(CNN)' beginnings
+for idx in range(len(cnn)):
+    current = cnn.loc[idx,'article']
+    index=current.find('(CNN)')
+    if index != -1:
+        cnn.loc[idx,'article']=current[index+len('(CNN)'):]
+    else:
+        index=current.find('(CNN Business)')
+        if index != -1:
+            cnn.loc[idx,'article']=current[index+len('(CNN Business)'):]
+
+#The economist and dailymail don't have these beginnings
 
 #this should have already been done when collecting the articles - maybe the labelling should be done here
 reuters = reuters.assign(label=0)
