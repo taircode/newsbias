@@ -12,26 +12,30 @@ import pandas as pd
 
 #If you want more data, use the other months
 october_days=[]
+october_soups=[]
 for i in range(30):
     date=i+1
-    october_days.append("https://www.washingtonexaminer.com/sitemap/2021/10/"+date)
-    print(october_days)
-    exit()
-sitemaps=["https://www.washingtonexaminer.com/sitemap/2021/10","https://www.msnbc.com/archive/articles/2021/october"]
-sitemap_soups=[]
-for map in sitemaps:
-    sitemap_request=requests.get(map)
-    sitemap_soups.append(BeautifulSoup(sitemap_request.text,'lxml'))
+    #october_days.append("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
+    print("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
+    day_request=requests.get("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date),timeout=5)
+    #print(day_request)
+    october_soups.append(BeautifulSoup(day_request.text,'lxml'))
+    print(october_soups[i].prettify())
 
 links=[]
 
-for sitemap_soup in sitemap_soups:
-    main=sitemap_soup.find('main')
-    a_tags=main.find_all('a')
+for day_soup in october_soups:
+    main_div=day_soup.find('div',{'class':'ArchivePage-items col-12 mb-4'})
+    a_tags=main_div.find_all('a', {'class': "Link"})
     for a_tag in a_tags:
         links.append(a_tag.get('href'))
+        print(len(links))
 
 print(f"Found {len(links)} many links.")
+print(links)
+exit()
+
+#haven't implemented below this yet
 
 titles=[]
 articles=[]
