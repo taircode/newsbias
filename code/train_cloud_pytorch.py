@@ -61,6 +61,7 @@ if __name__ == "__main__":
         logging_strategy="epoch", #or change to steps and set logging_steps=int (default=500)
         logging_dir='./logs',
         logging_steps=1000,
+        save_strategry="epoch", #or change to steps and set save_steps=int (default=500)
     )
 
     trainer = Trainer(
