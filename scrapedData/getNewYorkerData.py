@@ -26,10 +26,12 @@ for a in a_tags:
     for a_tag in a_tags:
         cur_link=a_tag.get('href')
         if 'news' in cur_link:
-            #print(cur_link)
+            print(cur_link)
             links.append(cur_link)
             link_count=link_count+1
             #print(link_count)
+            if link_count%100==0:
+                print(link_count)
             if link_count>900:
                 break
 
@@ -67,4 +69,4 @@ print(labels)
 list_of_datapairs = list(zip(articles, labels))
 
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
-datafile = df.to_csv("NewYorkerdata.csv")
+datafile = df.to_csv("raw_articles/NewYorkerdata.csv")

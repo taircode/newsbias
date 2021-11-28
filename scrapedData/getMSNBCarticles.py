@@ -8,14 +8,11 @@ import pandas as pd
 
 #If you want more data, use the other months
 sitemaps=["https://www.msnbc.com/archive/articles/2021/september","https://www.msnbc.com/archive/articles/2021/october"]
-sitemap_soups=[]
-for map in sitemaps:
-    sitemap_request=requests.get(map)
-    sitemap_soups.append(BeautifulSoup(sitemap_request.text,'lxml'))
-
 links=[]
 
-for sitemap_soup in sitemap_soups:
+for map in sitemaps:
+    sitemap_request=requests.get(map)
+    sitemap_soup=BeautifulSoup(sitemap_request.text,'lxml')
     main=sitemap_soup.find('main')
     a_tags=main.find_all('a')
     for a_tag in a_tags:
@@ -41,7 +38,8 @@ for link in links:
         #print(article_body)
         articles.append(article_body)
         count=count+1
-        print(count)
+        if count%100==0:
+            print(count)
 
 print(f"count={count}")
 
@@ -52,4 +50,4 @@ print(labels)
 list_of_datapairs = list(zip(articles, labels))
 
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
-datafile = df.to_csv("MSNBCdata.csv")
+datafile = df.to_csv("raw_articles/MSNBCdata.csv")
