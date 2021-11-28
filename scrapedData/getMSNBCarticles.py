@@ -24,31 +24,34 @@ articles=[]
 count=0
 
 for map in sitemaps:
-    if len(articles)>1000:
+    if count>1000:
         break
-    sitemap_request=requests.get(map)
-    sitemap_soup=BeautifulSoup(sitemap_request.text,'lxml')
-    main=sitemap_soup.find('main')
-    a_tags=main.find_all('a')
-    for a_tag in a_tags:
-        if len(articles)>1000:
-            break
-        link=a_tag.get('href')
-        if 'transcript' not in link:
-            print(link)
-            r=requests.get(link,timeout=10)
-            html_source=r.text
+    else:
+        sitemap_request=requests.get(map)
+        sitemap_soup=BeautifulSoup(sitemap_request.text,'lxml')
+        main=sitemap_soup.find('main')
+        a_tags=main.find_all('a')
+        for a_tag in a_tags:
+            if count>1000:
+                break
+            else:
+                link=a_tag.get('href')
+                if 'transcript' not in link:
+                    r=requests.get(link,timeout=10)
+                    html_source=r.text
 
-            #various options for parsers: "html.parser"
-            soup=BeautifulSoup(html_source,"lxml")
+                    #various options for parsers: "html.parser"
+                    soup=BeautifulSoup(html_source,"lxml")
 
-            div=soup.find("div",{'class': 'article-body__content article-body-font--loading'})
-            article_body=div.get_text()
-            #print(article_body)
-            articles.append(article_body)
-            count=count+1
-            if count%100==0:
-                print(count)
+                    div=soup.find("div",{'class': 'article-body__content article-body-font--loading'})
+                    article_body=div.get_text()
+                    #print(article_body)
+                    articles.append(article_body)
+                    count=count+1
+                    if count%100==0:
+                        print(count)
+                        print(len(articles))
+                        print(link)
 
 print(f"count={count}")
 
