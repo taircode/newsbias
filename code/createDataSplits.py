@@ -49,6 +49,10 @@ for idx in range(len(frames_dict['reuters'])):
     index=current.find('(Reuters) - ')
     if index != -1:
         frames_dict['reuters'].loc[idx,'article']=current[index+len('(Reuters) - '):]
+    else:
+        index=current.find('( Reuters Breakingviews )')
+        if index != -1:
+            frames_dict['reuters'].loc[idx,'article']=current[index+len('( Reuters Breakingviews )'):]
 
 #get rid of the city, country '(CNN)' beginnings
 for idx in range(len(frames_dict['cnn'])):
@@ -89,8 +93,6 @@ train, val = np.split(permuted_dataset,[int(.8*len(permuted_dataset))])
 print(f"Full dataset size is {len(permuted_dataset)}")
 print(f"Train dataset size is {len(train)}")
 print(f"Eval dataset size is {len(val)}")
-
-exit()
 
 train.to_csv("../articles/train.csv")
 val.to_csv("../articles/eval.csv")
