@@ -5,16 +5,35 @@ from datasets import load_dataset
 
 #first merge all of the CSVs
 
-reuters=pd.read_csv("../scrapedData/Reutersdata.csv", usecols=['article','label'])
-economist=pd.read_csv("../scrapedData/EconomistData.csv", usecols=['article','label'])
-cnn=pd.read_csv("../scrapedData/CNNdata.csv", usecols=['article','label'])
-dailymail=pd.read_csv("../scrapedData/DailyMaildata.csv", usecols=['article','label'])
+#you should probably make a list or dictionary containing these
+#these are the most factual - label=0
+reuters=pd.read_csv("../scrapedData/raw_articles/Reutersdata.csv", usecols=['article','label'])
 
+#these are second most factual - label=1
+economist=pd.read_csv("../scrapedData/raw_articles/EconomistData.csv", usecols=['article','label'])
+newyorker=pd.read_csv("../scrapedData/raw_articles/NewYorkerData.csv", usecols=['article','label'])
+nationalreview=pd.read_csv("../scrapedData/raw_articles/NationalReviewData.csv", usecols=['article','label'])
+
+#these are third most factual - label=2
+cnn=pd.read_csv("../scrapedData/raw_articles/CNNData.csv", usecols=['article','label'])
+msnbc=pd.read_csv("../scrapedData/raw_articles/MSNBCData.csv", usecols=['article','label'])
+
+#these are forth most factual - label=3
+dailymail=pd.read_csv("../scrapedData/raw_articles/DailyMailData.csv", usecols=['article','label'])
+fox=pd.read_csv("../scrapedData/raw_articles/FoxNewsData.csv", usecols=['article','label'])
+
+all_frames=[reuters,economist,newyorker,nationalreview,cnn,msnbc,dailymail,fox]
 #reuters=reuters.rename(columns={'label': 'labels'})
 #economist=economist.rename(columns={'label': 'labels'})
 #cnn=cnn.rename(columns={'label': 'labels'})
 #dailymail=dailymail.rename(columns={'label': 'labels'})
 
+print(dailymail['article'])
+for frame in all_frames:
+    nulls=np.where(pd.isnull(frame['article']))
+    frame=frame.drop(nulls[0])
+print(dailymail['article'])
+exit()
 #making sure that there are no empty strings, i.e. NaNs, DailyMail was letting some slip through
 nulls=np.where(pd.isnull(dailymail['article']))
 dailymail=dailymail.drop(nulls[0])

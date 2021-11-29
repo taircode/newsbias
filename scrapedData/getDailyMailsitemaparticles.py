@@ -90,6 +90,6 @@ print(labels)
 list_of_datapairs = list(zip(articles, labels))
 
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
-datafile = df.to_csv("scrapedData/DailyMaildata.csv")
+datafile = df.to_csv("raw_articles/DailyMailData.csv")
 
 #implement append version down here if you want - see geteconomistarticles

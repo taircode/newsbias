@@ -104,7 +104,7 @@ print(labels)
 list_of_datapairs = list(zip(articles, labels))
 
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
-datafile = df.to_csv("CNNdata.csv")
+datafile = df.to_csv("raw_articles/CNNData.csv")
 
 #if appending, change mode to "a" and specify header=False
 #atafile = df.to_csv("CNNdata.csv",mode="a", header=False)
