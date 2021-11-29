@@ -91,4 +91,4 @@ print(labels)
 list_of_datapairs = list(zip(articles, labels))
 
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
-datafile = df.to_csv("FoxNewsdata.csv")
+datafile = df.to_csv("raw_articles/FoxNewsData.csv")
