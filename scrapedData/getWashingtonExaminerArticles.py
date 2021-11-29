@@ -13,14 +13,14 @@ import pandas as pd
 #If you want more data, use the other months
 october_days=[]
 october_soups=[]
-for i in range(30):
+for i in range(15):
     date=i+1
     #october_days.append("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
     print("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date))
     day_request=requests.get("https://www.washingtonexaminer.com/sitemap/2021/10/"+str(date),timeout=5)
     #print(day_request)
     october_soups.append(BeautifulSoup(day_request.text,'lxml'))
-    print(october_soups[i].prettify())
+    #print(october_soups[i].prettify())
 
 links=[]
 
@@ -32,8 +32,6 @@ for day_soup in october_soups:
         print(len(links))
 
 print(f"Found {len(links)} many links.")
-print(links)
-exit()
 
 #haven't implemented below this yet
 
@@ -66,4 +64,4 @@ print(labels)
 list_of_datapairs = list(zip(articles, labels))
 
 df = pd.DataFrame(list_of_datapairs, columns=["article","label"])
-datafile = df.to_csv("MSNBCdata.csv")
+datafile = df.to_csv("raw_articles/WashingtonExaminerdata.csv")
