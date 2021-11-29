@@ -35,7 +35,7 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
         local_count=local_count+cur_len
         if local_count>510:
             start_indices.append(global_index)
-            local_count=0
+            local_count=cur_len
         global_index=global_index+cur_len
     start_indices.append(len(token_list))
     article_chunks=[]
@@ -45,14 +45,17 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
         article_chunks.append(token_list[start_indices[i]:start_indices[i+1]])
         article_chunks[i].insert(0, 101)
         article_chunks[i].append(102)
+        article_chunks[i].extend([0]*(512-len(article_chunks[i])))
         #print(f"length of article chunk is {len(article_chunks[i])}")
         type_chunks.append(token_types[start_indices[i]:start_indices[i+1]])
         type_chunks[i].insert(0, 0)
         type_chunks[i].append(0)
+        type_chunks[i].extend([0]*(512-len(type_chunks[i])))
         #print(f"length of type chunk is {len(type_chunks[i])}")
         mask_chunks.append(attention_mask[start_indices[i]:start_indices[i+1]])
         mask_chunks[i].insert(0, 1)
         mask_chunks[i].append(1)
+        mask_chunks[i].extend([0]*(512-len(mask_chunks[i])))
         #print(f"length of type chunk is {len(type_chunks[i])}")
     return article_chunks, type_chunks, mask_chunks
 
