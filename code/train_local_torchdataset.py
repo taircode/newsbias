@@ -35,7 +35,6 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
         local_count=local_count+cur_len
         if local_count>510:
             start_indices.append(global_index)
-            print(start_indices)
             local_count=0
         global_index=global_index+cur_len
     start_indices.append(len(token_list))
@@ -59,7 +58,6 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
 
 if __name__ == "__main__":
     nltk.download('punkt')
-
     #initialize the tokenizer and model - using pretrained bert-base-cased - see if there's a more specific fine-tuned model in the model database that applies to our task
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
@@ -104,7 +102,7 @@ if __name__ == "__main__":
     #print(type(X_train_encoded['input_ids']))
 
     #use this to turn text into list of sentences
-    text_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    #text_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
     #break up the long articles in training set
     idx=0
@@ -119,12 +117,6 @@ if __name__ == "__main__":
             token_types=X_train_encoded['token_type_ids'][idx]
             attention_mask=X_train_encoded['attention_mask'][idx]
             article_chunks, type_chunks, mask_chunks=chop_article(long_text,tokenizer,token_types,attention_mask)
-            #exit()
-            #old way
-            #article_chunks=list(get_chunks(longlist=X_train_encoded['input_ids'][idx]))
-            #print(f"article chunk length is {len(article_chunks)}")
-            #type_chunks=list(get_chunks(longlist=X_train_encoded['token_type_ids'][idx]))
-            #mask_chunks=list(get_chunks(longlist=X_train_encoded['attention_mask'][idx]))
             del X_train_encoded['input_ids'][idx]
             X_train_encoded['input_ids'][idx:idx]=article_chunks
             y_label=y_train[idx]
@@ -140,7 +132,7 @@ if __name__ == "__main__":
     for i in range(len(X_train_encoded['input_ids'])):
         print(len(X_train_encoded['input_ids'][i]))
 
-    #break up the long articles in training set
+    #break up the long articles in eval set
     idx=0
     while idx<len(X_eval_encoded['input_ids']):
         #print("in while")
@@ -153,12 +145,6 @@ if __name__ == "__main__":
             token_types=X_eval_encoded['token_type_ids'][idx]
             attention_mask=X_eval_encoded['attention_mask'][idx]
             article_chunks, type_chunks, mask_chunks=chop_article(long_text,tokenizer,token_types,attention_mask)
-            #exit()
-            #old way
-            #article_chunks=list(get_chunks(longlist=X_train_encoded['input_ids'][idx]))
-            #print(f"article chunk length is {len(article_chunks)}")
-            #type_chunks=list(get_chunks(longlist=X_train_encoded['token_type_ids'][idx]))
-            #mask_chunks=list(get_chunks(longlist=X_train_encoded['attention_mask'][idx]))
             del X_eval_encoded['input_ids'][idx]
             X_eval_encoded['input_ids'][idx:idx]=article_chunks
             y_label=y_eval[idx]
