@@ -25,6 +25,7 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
     start_indices=[0]
     global_index=0
     local_count=0
+    long_sentence_flag=0
     for i, sentence in enumerate(sentences):
         #print(sentence)
         encoded_sentence=tokenizer.encode(sentence)
@@ -36,8 +37,14 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
         if local_count>510:
             start_indices.append(global_index)
             local_count=cur_len
+        if cur_len>512:
+            #print("got a super long sentence")
+            #print(sentence)
+            long_sentence_flag=1
+            break
         global_index=global_index+cur_len
-    start_indices.append(len(token_list))
+    if long_sentence_flag==0:
+        start_indices.append(len(token_list))
     article_chunks=[]
     type_chunks=[]
     mask_chunks=[]
@@ -133,7 +140,10 @@ if __name__ == "__main__":
             idx=idx+1
 
     for i in range(len(X_train_encoded['input_ids'])):
-        print(len(X_train_encoded['input_ids'][i]))
+        if len(X_train_encoded['input_ids'][i])>512:
+            print(len(X_train_encoded['input_ids'][i]))
+            print(X_train_encoded['input_ids'][i])
+            print(tokenizer.decode(X_train_encoded['input_ids'][i]))
 
     #break up the long articles in eval set
     idx=0
@@ -161,7 +171,10 @@ if __name__ == "__main__":
             idx=idx+1
 
     for i in range(len(X_eval_encoded['input_ids'])):
-        print(len(X_eval_encoded['input_ids'][i]))
+        if len(X_eval_encoded['input_ids'][i])>512:
+            print(len(X_eval_encoded['input_ids'][i]))
+            print(X_eval_encoded['input_ids'][i])
+            print(tokenizer.decode(X_eval_encoded['input_ids'][i]))
 
     #wrap BatchEncoding as a torch.util dataset
     train_dataset=myDataset(X_train_encoded,y_train)
