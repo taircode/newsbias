@@ -160,7 +160,7 @@ if __name__ == "__main__":
         per_device_train_batch_size=1,
         per_device_eval_batch_size=1,
         evaluation_strategy="epoch", #or change to steps and set eval_steps=int (default=logging_steps)
-        logging_strategy="epoch", #or change to steps and set logging_steps=int (default=500)
+        logging_strategy="steps", #or change to steps and set logging_steps=int (default=500)
         logging_dir='./logs',
         logging_steps=500,
         save_strategy="epoch", #or change to steps and set save_steps=int (default=500)
