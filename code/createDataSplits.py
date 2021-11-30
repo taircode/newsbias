@@ -33,6 +33,9 @@ frames_dict={
     "fox": fox,
 }
 
+for item in frames_dict.items():
+    print(f"{item[0]} has length {len(item[1]['article'])}")
+
 #reuters=reuters.rename(columns={'label': 'labels'})
 #economist=economist.rename(columns={'label': 'labels'})
 #cnn=cnn.rename(columns={'label': 'labels'})

@@ -17,3 +17,4 @@ matplotlib
 sklearn
 scipy
 cloudpickle==1.6.0
+nltk.data
