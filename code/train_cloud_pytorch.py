@@ -4,15 +4,15 @@ from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer
 )
+from datasets import load_dataset
 from transformers.integrations import MLflowCallback
 import argparse
 import os
 import pandas as pd
 from myDataset import myDataset
+import nltk
 
 #This is the training script to be uploaded to Azure
-
-import nltk.data
 
 def get_chunks(longlist):
     #you should probably pad the last chunk or maybe just ignore chunks that are way too small
@@ -66,6 +66,8 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
 
 
 if __name__ == "__main__":
+    nltk.download('punkt')
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--datapath")
     parser.add_argument("--output_dir")
@@ -81,16 +83,14 @@ if __name__ == "__main__":
     train_path = os.path.join(args.datapath,"train.csv")
     eval_path = os.path.join(args.datapath,"eval.csv")
 
-    train_data=pd.read_csv(train_path)
+    train_data = load_dataset('csv', data_files=train_path, split='train')
+    eval_data = load_dataset('csv', data_files=eval_path, split='train')
+
     X_train = list(train_data['article'])
     y_train = list(train_data['label'])
-
     print(f"Train Dataset has length:{len(X_train)}\n")
-
-    eval_data=pd.read_csv(eval_path)
     X_eval = list(eval_data['article'])
     y_eval = list(eval_data['label'])
-
     print(f"Eval Dataset has length:{len(X_eval)}\n")
 
     #note, turning the tokens into torch tensors in the myDataset class
