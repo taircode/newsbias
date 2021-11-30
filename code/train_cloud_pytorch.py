@@ -168,9 +168,11 @@ if __name__ == "__main__":
         evaluation_strategy="epoch", #or change to steps and set eval_steps=int (default=logging_steps)
         logging_strategy="epoch", #or change to steps and set logging_steps=int (default=500)
         logging_dir='./logs',
-        logging_steps=1000,
-        save_strategry="epoch", #or change to steps and set save_steps=int (default=500)
+        logging_steps=5000,
+        save_strategy="epoch", #or change to steps and set save_steps=int (default=500)
     )
+
+    print("\nSpecified Training Args.\n")
 
     trainer = Trainer(
         model=model,
@@ -178,6 +180,8 @@ if __name__ == "__main__":
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
     )  
+
+    print("\nInstantiated Trainer.\n")
 
     #what does this do? Look it up
     trainer.pop_callback(MLflowCallback)
