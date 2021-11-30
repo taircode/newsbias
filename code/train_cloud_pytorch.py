@@ -121,9 +121,6 @@ if __name__ == "__main__":
         else:
             idx=idx+1
 
-    for i in range(len(X_train_encoded['input_ids'])):
-        print(len(X_train_encoded['input_ids'][i]))
-
     #break up the long articles in eval set
     idx=0
     while idx<len(X_eval_encoded['input_ids']):
@@ -148,9 +145,6 @@ if __name__ == "__main__":
             idx=idx+len(article_chunks)
         else:
             idx=idx+1
-
-    for i in range(len(X_eval_encoded['input_ids'])):
-        print(len(X_eval_encoded['input_ids'][i]))
 
     train_dataset=myDataset(X_train_encoded,y_train)
     eval_dataset=myDataset(X_eval_encoded,y_eval)
