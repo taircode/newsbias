@@ -68,7 +68,8 @@ def chop_article(token_list, tokenizer, token_types, attention_mask):
 
 if __name__ == "__main__":
     nltk.download('punkt')
-    #initialize the tokenizer and model - using pretrained bert-base-cased - see if there's a more specific fine-tuned model in the model database that applies to our task
+    #initialize the tokenizer and model - using pretrained bert-base-cased
+    #See if there's a more specific fine-tuned model in the model database that applies to our task
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
     #trial_text="I asked McFadden if it was frustrating to stick to such a cautious script, even while the world had moved on. “ It ’ s just a recognition of where we are, ” he said. “ Economic assumptions have changed over the past decade. They definitely have, and we understand that. But the task of winning people ’ s trust is still there. ” You can see history passing the Party by. Since Labour lost power, British politics has undergone two great upheavals — Brexit and the rise of Scottish nationalism — both of which have been motivated by questions of identity and belonging. Labour has yet to formulate a convincing response to either. In “ The Road Ahead, ” Starmer acknowledged the skill of the Conservatives in riding these changes. “ The strength of the Tory party is in no small part due to its ability to shed its skin, ” he wrote. Embracing Brexit and falling in behind the chummy nationalism of Johnson, the Conservatives have managed to assemble a broad but fragile coalition that stretches from wealthy, tax - shy commuters in the London suburbs to postindustrial communities in the English northwest, who are crying out for investment and support. Labour, by contrast, doesn ’ t seem to know which way to turn — even though millions of voters seem to have already made up their minds."
@@ -115,6 +116,7 @@ if __name__ == "__main__":
     #text_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
     #break up the long articles in training set
+    #should probably make this it's own helper function since I do the same exact thing on train_set and eval_set
     idx=0
     while idx<len(X_train_encoded['input_ids']):
         #print("in while")
