@@ -1,5 +1,9 @@
 from azureml.core import Workspace
-"Upload training data to azure blob storage"
+"""
+Upload training data to azure blob storage
+The data is in /articles
+Two files - eval.csv and train.csv
+"""
 
 print("Connecting to Azure ML Workspace from config.json...")
 ws = Workspace.from_config()

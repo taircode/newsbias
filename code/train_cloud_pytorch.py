@@ -21,7 +21,7 @@ def get_chunks(longlist):
 
 #you should probably pad the last chunk or maybe just ignore chunks that are way too small
 def chop_article(token_list, tokenizer, token_types, attention_mask):
-    token_list=token_list[1:len(token_list)-1]
+    token_list=token_list[1:]
     #print(token_list)
     text=tokenizer.decode(token_list)
     #use this to turn text into list of sentences

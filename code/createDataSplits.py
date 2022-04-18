@@ -3,9 +3,15 @@ import pandas as pd
 import numpy as np
 from datasets import load_dataset
 
+"""
+Assuming articles already scraped and labelled in /scrapedData/raw_articles/[journal_name].csv
+Combine all articles into list, randomize, and divide into train.csv and eval.csv
+Save train.csv and eval.csv to /articles/
+"""
+
 #first merge all of the CSVs
 
-#you should probably make a list or dictionary containing these
+#you should probably make a list or dictionary containing labels
 #these are the most factual - label=0
 reuters=pd.read_csv("../scrapedData/raw_articles/Reutersdata.csv", usecols=['article','label'])
 
@@ -41,7 +47,7 @@ for item in frames_dict.items():
 #cnn=cnn.rename(columns={'label': 'labels'})
 #dailymail=dailymail.rename(columns={'label': 'labels'})
 
-#making sure that there are no empty strings, i.e. NaNs, DailyMail was letting some slip through
+#making sure that there are no empty strings, i.e. NaNs. DailyMail was letting some slip through.
 for key in frames_dict:
     nulls=np.where(pd.isnull(frames_dict[key]['article']))
     frames_dict[key]=frames_dict[key].drop(nulls[0])

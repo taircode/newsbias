@@ -13,6 +13,12 @@ from azureml.core import (
     Datastore,
 )
 
+"""
+Submit script for training model in Azure cloud.
+Most up-to-date training script is train_cload_pytorch.py
+Data lives in news/articles/
+"""
+
 parser = argparse.ArgumentParser()
 #parser.add_argument(
     #need some args?

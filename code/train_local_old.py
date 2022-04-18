@@ -13,7 +13,8 @@ from datasets import Value, Sequence, Features
 
 
 if __name__ == "__main__":
-    #initialize the tokenizer and model - using pretrained bert-base-cased - see if there's a more specific fine-tuned model in the model database that applies to our task
+    #initialize the tokenizer and model - using pretrained bert-base-cased
+    #see if there's a more specific fine-tuned model in the model database that applies to our task
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
     model=AutoModelForSequenceClassification.from_pretrained("bert-base-cased",num_labels=4)
     #print(model.config)
@@ -27,16 +28,14 @@ if __name__ == "__main__":
     print(f"Train Dataset has length:{len(train_dataset)}\n")
     #print(train_dataset)
 
-    """note for example this article is too long for default 'max_length' so we need truncation true, or otherwise increase 'max_length'"""
+    """note that some articles are too long for default 'max_length' so we need truncation true, or otherwise increase 'max_length'"""
     #print(tokenizer(train_dataset[0]['article'],truncation=True, padding='max_length'))
     #print(train_dataset.column_names)
     #print(train_dataset[3376])
-    #print(train_dataset[3377])
-    #print(train_dataset[3378])
 
     #features = Features({
     #    "label": Sequence(Value("int32")),
-        #"sembedding": Sequence(Value("float32"))
+    #    "sembedding": Sequence(Value("float32"))
     #})
     
     #add batched=True if you want batching
@@ -112,7 +111,7 @@ if __name__ == "__main__":
     #exit()
 
     #do we have to do the following two lines? There's something about huggingface not wanting a column to be called label, so it should be labels
-    """seriously, look this up, does this need to be labels."""
+    """seriously, look this up, does this need to be labels?"""
     """What's crated here is a dataset with both a 'label' attribute and a 'labels' attribute"""
     #encoded_train_dataset = encoded_train_dataset.map(lambda examples: {'labels': examples['label']})
     #encoded_eval_dataset = encoded_eval_dataset.map(lambda examples: {'labels': examples['label']})

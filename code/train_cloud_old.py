@@ -10,7 +10,7 @@ import argparse
 import os
 
 
-#This is the training script to be uploaded to Azure
+#This is a training script to be uploaded to Azure
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
