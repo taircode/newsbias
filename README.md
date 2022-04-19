@@ -11,4 +11,4 @@ A classifier model for classifying news articles on a discrete spectrum of factu
 
 Training in Azure cloud cpu-cluster. With more data should switch to gpu. 
 
-Current model is bert-base-cased from pretrained: model=AutoModelForSequenceClassification.from_pretrained("bert-base-cased",num_labels=4). Add option for other models.
+Current model is bert-base-cased from pretrained. Add option for other models.
