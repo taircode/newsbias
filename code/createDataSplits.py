@@ -79,7 +79,7 @@ for idx in range(len(frames_dict['cnn'])):
 #this should have already been done when collecting the articles - maybe the labelling should be done here
 frames_dict['reuters'] = frames_dict['reuters'].assign(label=0)
 
-frames_dict['economist'] = frames_dict['reuters'].assign(label=1)
+frames_dict['economist'] = frames_dict['economist'].assign(label=1)
 frames_dict['newyorker'] = frames_dict['newyorker'].assign(label=1)
 frames_dict['nationalreview'] = frames_dict['nationalreview'].assign(label=1)
 
