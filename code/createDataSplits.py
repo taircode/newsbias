@@ -42,6 +42,11 @@ frames_dict={
 for item in frames_dict.items():
     print(f"{item[0]} has length {len(item[1]['article'])}")
 
+print(f"label 0 has {len(reuters)} many articles")
+print(f"label 1 has {len(economist)+len(newyorker)+len(nationalreview)} many articles")
+print(f"label 2 has {len(cnn)+len(msnbc)} many articles")
+print(f"label 3 has {len(dailymail)+len(fox)} many articles")
+
 #reuters=reuters.rename(columns={'label': 'labels'})
 #economist=economist.rename(columns={'label': 'labels'})
 #cnn=cnn.rename(columns={'label': 'labels'})
