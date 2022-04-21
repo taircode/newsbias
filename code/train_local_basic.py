@@ -11,12 +11,19 @@ from transformers import (
 import numpy as np
 
 """
-This is the most basic implementation to fine-tune train a model from_pretrained using huggingface transformers.
+This is the most basic implementation to fine-tune train a model from_pretrained using the huggingface transformers module.
 Assuming we have data ready to load from a csv.
 """
 
 def tokenize_func(example):
     return tokenizer(example['article'],padding='max_length',truncation=True)
+
+#function to inspect the first row of dataset for debugging
+def print_single_row_data(data):
+    one_row=data.select([0])
+    print(one_row)
+    for item in one_row:
+        print(item)
 
 if __name__ == "__main__":
     #initialize the tokenizer and model - using pretrained bert-base-cased
@@ -31,17 +38,12 @@ if __name__ == "__main__":
 
     #randomly select a small subset of data examples for training locally
     train_encoded = train_encoded.shuffle().select(range(300))
-    eval_encoded = eval_encoded.shuffle().select(range(100))  
-
-    one_row=train_encoded.select([0])
-    print(one_row)
-    for item in one_row:
-        print(item)
+    eval_encoded = eval_encoded.shuffle().select(range(100))
 
     #specify evaluation_strategy if you want the trainer to calculate the compute_metrics function you gave it. 
     #defaults to 'no'. Options are 'no' - no evaluation, 'epoch' - evaluation every epoch, 'steps' - evaluation every 'eval_steps'
     #there are many other hyperparameters one can set, but leaving most as default here
-    training_args = TrainingArguments(output_dir="../locally_trained",evaluation_strategy='epoch')
+    training_args = TrainingArguments(output_dir="../locally_trained/huggingface",evaluation_strategy='epoch')
 
     #if you want to compute metrics while training, you need to give the trainer a function that computes metric
     #this is optional, trainer will train without computing metrics if you don't provide compute_metrics
