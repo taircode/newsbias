@@ -3,7 +3,7 @@ from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer
 )
-
+import torch.nn.functional as F
 
 print("Loading model...")
 model=AutoModelForSequenceClassification.from_pretrained("../locally_trained/huggingface")

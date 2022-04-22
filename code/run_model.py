@@ -69,6 +69,7 @@ for id in range(len(eval)):
     label=eval.loc[id,'label']
 
     tokenized_text=tokenizer(text, padding=True, truncation=True,return_tensors="pt")
+    print(tokenized_text)
     output=model(**tokenized_text)
     print(f"output is {output}")
     print(f"SoftMax is {F.softmax(output[0],dim=1)}")
