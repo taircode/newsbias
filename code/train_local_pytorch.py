@@ -72,6 +72,7 @@ if __name__ == "__main__":
     scheduler = get_scheduler(name="linear", optimizer=optimizer, num_warmup_steps=0, num_training_steps=num_training_steps)
 
     #use a GPU if possible
+    #Note there's no apple M1 chip GPU integration yet with torch
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     print(device)
     print(torch.cuda.is_available())
@@ -83,6 +84,7 @@ if __name__ == "__main__":
     model.train()
     for epoch in range(num_epochs):
         for batch in train_dataloader:
+            #move tensors to device, i.e. gpu if available
             batch = {k: v.to(device) for k, v in batch.items()}
             outputs = model(**batch)
             loss = outputs.loss

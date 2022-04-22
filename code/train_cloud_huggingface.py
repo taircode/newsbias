@@ -11,6 +11,7 @@ from transformers import (
 import numpy as np
 import argparse
 import os
+from transformers.integrations import MLflowCallback
 
 """
 This is the most basic implementation to fine-tune train a model from_pretrained using the huggingface transformers module.
@@ -67,8 +68,12 @@ if __name__ == "__main__":
         args=training_args,
         train_dataset=train_encoded,
         eval_dataset=eval_encoded,
-        compute_metrics=my_metrics_func
+        compute_metrics=my_metrics_func,
+        save_strategy="epoch",
+        logging_dir='./logs',
     )  
+
+    trainer.pop_callback(MLflowCallback)
 
     print("Training!\n")
     train_result = trainer.train()
