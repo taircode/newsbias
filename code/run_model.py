@@ -8,6 +8,12 @@ import torch.nn.functional as F
 import torch
 from azureml.core import Workspace
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--type","-t",choices=["huggingface","pytorch"],default='huggingface',help="select training framework") #huggingface or pytorch
+args = parser.parse_args()
+
+location='news/model/'+args.type
+
 print("Connecting to workspace datastore...")
 ws = Workspace.from_config()
 ds = ws.get_default_datastore()
@@ -15,27 +21,27 @@ ds = ws.get_default_datastore()
 print(f"Downloading config.json to local news/model from news/model")
 ds.download(
     target_path="..",
-    prefix="news/model/config.json",
+    prefix=location+"/config.json",
     overwrite=False,
     show_progress=True
 )
 print(f"Downloading training_args.bin to local news/model from news/model")
 ds.download(
     target_path="..",
-    prefix="news/model/training_args.bin",
+    prefix=location+"/training_args.bin",
     overwrite=False,
     show_progress=True
 )
 print(f"Downloading pytorch_model.bin to local news/model from news/model")
 ds.download(
     target_path="..",
-    prefix="news/model/pytorch_model.bin",
+    prefix=location+"/pytorch_model.bin",
     overwrite=False,
     show_progress=True
 )
 
 print("Loading model...")
-model=AutoModelForSequenceClassification.from_pretrained("../news/model")
+model=AutoModelForSequenceClassification.from_pretrained("../"+location)
 print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
