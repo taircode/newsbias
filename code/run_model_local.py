@@ -13,8 +13,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--type","-t",choices=["huggingface","pytorch"],default='huggingface',help="select training framework") #huggingface or pytorch
 args = parser.parse_args()
 
+path="../locally_trained/"+args.type
+
 print("Loading "+args.type+" trained model...")
-model=AutoModelForSequenceClassification.from_pretrained("../locally_trained/"+args.type)
+model=AutoModelForSequenceClassification.from_pretrained(path)
 print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
