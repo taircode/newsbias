@@ -59,6 +59,10 @@ if __name__ == "__main__":
     train_encoded = train_encoded.rename_column('label','labels')
     eval_encoded = eval_encoded.rename_column('label','labels')
 
+    #for debugging if you want to take a small subset of the data
+    #train_encoded=train_encoded.select(range(10))
+    #eval_encoded=eval_encoded.select(range(5))
+
     #set format to 'torch' tensors instead of lists - you can also pass tensor='pt' to the tokenizer, but this was giving dimension issues even with padding=True
     train_encoded.set_format('torch')
     eval_encoded.set_format('torch')
