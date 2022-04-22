@@ -12,7 +12,12 @@ import pandas as pd
 from myDataset import myDataset
 import nltk
 
-#This is the training script to be uploaded to Azure
+"""
+This is a training script to be uploaded to Azure.
+In this version articles that are too long are chopped up into smaller fragments. 
+Using myDataset class here that subclasses torch.utils.data.Dataset.
+Should probably abstract away the data chopping to myDataset to keep this training script about training.
+"""
 
 def get_chunks(longlist):
     #you should probably pad the last chunk or maybe just ignore chunks that are way too small

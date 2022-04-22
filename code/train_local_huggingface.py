@@ -38,8 +38,8 @@ if __name__ == "__main__":
     eval_encoded=eval_dataset.map(tokenize_func, batched=True)
 
     #randomly select a small subset of data examples for training locally
-    train_encoded = train_encoded.shuffle().select(range(300))
-    eval_encoded = eval_encoded.shuffle().select(range(100))
+    train_encoded = train_encoded.shuffle().select(range(25))
+    eval_encoded = eval_encoded.shuffle().select(range(25))
 
     #specify evaluation_strategy if you want the trainer to calculate the compute_metrics function you gave it. 
     #defaults to 'no'. Options are 'no' - no evaluation, 'epoch' - evaluation every epoch, 'steps' - evaluation every 'eval_steps'

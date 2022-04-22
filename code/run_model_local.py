@@ -6,6 +6,7 @@ from transformers import (
 import argparse
 import torch.nn
 import torch
+import numpy as np
 
 
 parser = argparse.ArgumentParser()
@@ -30,7 +31,7 @@ for id in range(len(eval)):
 
     logits = output.logits
     softmax=torch.nn.Softmax(logits)
-    prediction = torch.argmax(logits, dim=-1)
+    prediction = np.argmax(logits, axis=-1)
 
     #print(f"output is {max(output[0])}")
     #print(f"SoftMax is {softmax}")

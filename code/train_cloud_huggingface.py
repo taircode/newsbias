@@ -50,10 +50,20 @@ if __name__ == "__main__":
     train_encoded=train_dataset.map(tokenize_func, batched=True)
     eval_encoded=eval_dataset.map(tokenize_func, batched=True)
 
+    #for debugging if you want to take a small subset of the data
+    #train_encoded=train_encoded.select(range(10))
+    #eval_encoded=eval_encoded.select(range(5))
+
     #specify evaluation_strategy if you want the trainer to calculate the compute_metrics function you gave it. 
     #defaults to 'no'. Options are 'no' - no evaluation, 'epoch' - evaluation every epoch, 'steps' - evaluation every 'eval_steps'
     #there are many other hyperparameters one can set, but leaving most as default here
-    training_args = TrainingArguments(output_dir=args.output_dir,evaluation_strategy='epoch')
+    training_args = TrainingArguments(
+        output_dir=args.output_dir,
+        evaluation_strategy='epoch',
+        logging_dir='./logs',
+        logging_steps=500,
+        save_strategy="epoch"
+    )
 
     #if you want to compute metrics while training, you need to give the trainer a function that computes metric
     #this is optional, trainer will train without computing metrics if you don't provide compute_metrics
@@ -69,8 +79,6 @@ if __name__ == "__main__":
         train_dataset=train_encoded,
         eval_dataset=eval_encoded,
         compute_metrics=my_metrics_func,
-        save_strategy="epoch",
-        logging_dir='./logs',
     )  
 
     trainer.pop_callback(MLflowCallback)
