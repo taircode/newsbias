@@ -65,6 +65,7 @@ if __name__ == "__main__":
         logging_dir='./logs',
         logging_steps=500,
         save_strategy="epoch", #or change to steps and set save_steps=int (default=500)
+        num_train_epochs=1
     )
 
     #if you want to compute metrics while training, you need to give the trainer a function that computes metric
