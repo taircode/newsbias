@@ -23,8 +23,7 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
     model=AutoModelForSequenceClassification.from_pretrained("bert-base-cased",num_labels=4)
 
-    #This is going to be important - how are you going to classify political bias
-    classes=["fact","factual analysis","opinion","selective-incomplete","fiction"]
+    #classes=["fact","factual analysis","opinion","selective-incomplete"]
 
     train_path = os.path.join(args.datapath,"train.csv")
     eval_path = os.path.join(args.datapath,"eval.csv")
