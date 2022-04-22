@@ -59,10 +59,12 @@ if __name__ == "__main__":
     #there are many other hyperparameters one can set, but leaving most as default here
     training_args = TrainingArguments(
         output_dir=args.output_dir,
-        evaluation_strategy='epoch',
+        overwrite_output_dir=True,
+        evaluation_strategy="epoch", #or change to steps and set eval_steps=int (default=logging_steps)
+        logging_strategy="steps", #or change to steps and set logging_steps=int (default=500)
         logging_dir='./logs',
         logging_steps=500,
-        save_strategy="epoch"
+        save_strategy="epoch", #or change to steps and set save_steps=int (default=500)
     )
 
     #if you want to compute metrics while training, you need to give the trainer a function that computes metric

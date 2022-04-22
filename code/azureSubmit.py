@@ -36,7 +36,7 @@ output_to='news/model/'+args.type+'/'
 # get workspace
 ws = Workspace.from_config()
 
-# datastore
+# get the default datastore for this workspace
 datastore = ws.get_default_datastore()
 
 #input dataset
