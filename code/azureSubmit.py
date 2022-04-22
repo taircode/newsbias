@@ -15,21 +15,23 @@ from azureml.core import (
 
 """
 Submit script for training model in Azure cloud.
-Most up-to-date training script is train_cload_pytorch.py
+Train either using huggingface transoformer trainer or pytorch
 Data lives in news/articles/
 """
 
-parser = argparse.ArgumentParser()
-#parser.add_argument(
-    #need some args?
-#)
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--type","-t",choices=["huggingface","pytorch"],default='huggingface',help="select training framework") #huggingface or pytorch
 args = parser.parse_args()
+
+#This is old, remove it
 #what is training_framework? What if this is pytorch-lightning?
-args.training_framerwork = "transformers"
+#args.training_framerwork = "transformers"
 #other option: args.training_framerwork = "pytorch-lightning"
 
 print('args:', ' '.join(f'{k}={v}' for k, v in vars(args).items()))
+script='train_cloud_'+args.type+'.py'
+output_to='news/model/'+args.type+'/'
 
 # get workspace
 ws = Workspace.from_config()
@@ -42,7 +44,7 @@ input_dataset = Dataset.File.from_files(path=(datastore, "news/articles/"))
 print(type(input_dataset))
 print(input_dataset)
 #output dataset
-output_dataset = OutputFileDatasetConfig(destination=(datastore, "news/model/"),name="output")
+output_dataset = OutputFileDatasetConfig(destination=(datastore, output_to),name="output")
 
 arguments=[
     "--datapath", input_dataset.as_mount(),  #look up and think about what as_mount() does
@@ -61,7 +63,7 @@ env.register(ws)
 
 config = ScriptRunConfig(
     source_directory=".",
-    script="train_cloud_pytorch.py",
+    script=script,
     compute_target=target,
     environment=env,
     arguments=arguments,
