@@ -3,8 +3,6 @@ from datasets import (
     load_metric
 )
 from transformers import (
-    Trainer,
-    TrainingArguments,
     AutoModelForSequenceClassification,
     AutoTokenizer
 )
@@ -20,6 +18,7 @@ from tqdm.auto import tqdm
 """
 This is the most basic implementation to fine-tune train a model from_pretrained using huggingface pytorch integration.
 Assuming we have data ready to load from a csv.
+Reference tutorial: https://huggingface.co/docs/transformers/training
 """
 
 def tokenize_func(example):
@@ -54,11 +53,11 @@ if __name__ == "__main__":
     train_encoded = train_encoded.rename_column('label','labels')
     eval_encoded = eval_encoded.rename_column('label','labels')
 
-    #set format to 'pytorch' tensors instead of lists - you can also pass tensor='pt' to the tokenizer, but this was giving dimension issues
+    #set format to 'torch' tensors instead of lists - you can also pass tensor='pt' to the tokenizer, but this was giving dimension issues even with padding=True
     train_encoded.set_format('torch')
     eval_encoded.set_format('torch')
 
-    print_single_row_data(train_encoded)
+    #print_single_row_data(train_encoded)
 
     #create torch dataloaders from the datasets
     train_dataloader = DataLoader(train_encoded, shuffle=True, batch_size=8)
@@ -74,6 +73,8 @@ if __name__ == "__main__":
 
     #use a GPU if possible
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    print(device)
+    print(torch.cuda.is_available())
     model.to(device)
 
     #instantiate progress bar from tqdm.auto
@@ -106,3 +107,5 @@ if __name__ == "__main__":
         metric.add_batch(predictions=predictions, references=batch["labels"])
 
     metric.compute()
+
+    model.save_pretrained(save_directory='../locally_trained/pytorch')
