@@ -11,6 +11,9 @@ import torch
 
 from datasets import Value, Sequence, Features
 
+"""
+Was having an issue with this way of training - when calling dataset.map with return_tensors='pt' kept returning a list, not a pt-tensor.
+"""
 
 if __name__ == "__main__":
     #initialize the tokenizer and model - using pretrained bert-base-cased
