@@ -13,6 +13,7 @@ import numpy as np
 """
 This is the most basic implementation to fine-tune train a model from_pretrained using the huggingface transformers module.
 Assuming we have data ready to load from a csv.
+Reference tutorial: https://huggingface.co/docs/transformers/training
 """
 
 def tokenize_func(example):
