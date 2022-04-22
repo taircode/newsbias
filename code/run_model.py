@@ -20,21 +20,21 @@ print("Connecting to workspace datastore...")
 ws = Workspace.from_config()
 ds = ws.get_default_datastore()
 
-print(f"Downloading config.json to local {location} from datastroe {location}")
+print(f"Downloading config.json to local {location} from datastore {location}")
 ds.download(
     target_path="..",
     prefix=location+"/config.json",
     overwrite=False,
     show_progress=True
 )
-print(f"Downloading training_args.bin to local {location} from datastroe {location}")
+print(f"Downloading training_args.bin to local {location} from datastore {location}")
 ds.download(
     target_path="..",
     prefix=location+"/training_args.bin",
     overwrite=False,
     show_progress=True
 )
-print(f"Downloading pytorch_model.bin to local {location} from datastroe {location}")
+print(f"Downloading pytorch_model.bin to local {location} from datastore {location}")
 ds.download(
     target_path="..",
     prefix=location+"/pytorch_model.bin",
