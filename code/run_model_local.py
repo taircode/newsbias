@@ -4,8 +4,9 @@ from transformers import (
     AutoTokenizer
 )
 import argparse
-import torch.nn.functional as F
+import torch.nn
 import torch
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--type","-t",choices=["huggingface","pytorch"],default='huggingface',help="select training framework") #huggingface or pytorch
@@ -26,9 +27,12 @@ for id in range(len(eval)):
     tokenized_text=tokenizer(text, padding=True, truncation=True, return_tensors="pt")
     with torch.no_grad():
         output=model(**tokenized_text)
-    softmax=F.softmax(output[0],dim=1)
-    print(max(softmax))
-    print(f"output is {max(output[0])}")
-    print(f"SoftMax is {softmax}")
-    print(f"Prediction is {output[0]}")
+
+    logits = output.logits
+    softmax=torch.nn.Softmax(logits)
+    prediction = torch.argmax(logits, dim=-1)
+
+    #print(f"output is {max(output[0])}")
+    #print(f"SoftMax is {softmax}")
+    print(f"Prediction is {prediction}")
     print(f"Actual label was {label}")
