@@ -60,11 +60,14 @@ for id in range(len(eval)):
         output=model(**tokenized_text)
 
     logits = output.logits
-    softmax=torch.nn.Softmax(logits)
+
+    soft_func=torch.nn.Softmax(dim=1)
+    softmax=soft_func(logits)
+
     prediction = np.argmax(logits, axis=-1)
 
-    #print(f"output is {max(output[0])}")
-    #print(f"SoftMax is {softmax}")
+    #print(f"logits are {logits}")
+    #print(f"softmax is {softmax}")
     print(f"Prediction is {prediction}")
     print(f"Actual label was {label}")
 
