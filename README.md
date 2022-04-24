@@ -12,3 +12,6 @@ A classifier model for classifying news articles on a discrete spectrum of factu
 Training in Azure cloud cpu-cluster. With more data should switch to gpu. 
 
 Current model is bert-base-cased from pretrained. Add option for other models.
+
+
+ToDo: Integrate News-API to classifying today's top breaking news articles.
