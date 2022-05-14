@@ -15,5 +15,5 @@ Current model is bert-base-cased from pretrained. Add option for other models.
 
 
 ToDo: 
--Integrate News-API to classify today's top breaking news articles.
--Add left/right-leaning classifier. 
+- Integrate News-API to classify today's top breaking news articles.
+- Add left/right-leaning classifier. 
