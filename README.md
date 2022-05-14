@@ -14,4 +14,6 @@ Training in Azure cloud cpu-cluster. With more data should switch to gpu.
 Current model is bert-base-cased from pretrained. Add option for other models.
 
 
-ToDo: Integrate News-API to classifying today's top breaking news articles.
+ToDo: 
+-Integrate News-API to classify today's top breaking news articles.
+-Add left/right-leaning classifier. 
